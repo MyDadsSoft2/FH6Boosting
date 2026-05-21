@@ -1,124 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MyDadsSoft's Boosting</title>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;900&display=swap');
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;900&display=swap" rel="stylesheet">
 
+<style>
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: Inter, sans-serif;
 }
 
 body {
-  font-family: Inter, sans-serif;
   background: radial-gradient(circle at top, #1a0000, #000);
   color: white;
   overflow-x: hidden;
 }
 
-/* BACKGROUND GLOW */
-.glow {
+/* animated glow background */
+.bg-glow {
   position: fixed;
-  width: 600px;
-  height: 600px;
-  background: rgba(255,0,0,0.15);
-  filter: blur(120px);
-  border-radius: 50%;
+  inset: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(255,0,0,0.2), transparent 40%),
+              radial-gradient(circle at 80% 80%, rgba(255,0,0,0.15), transparent 40%);
+  filter: blur(40px);
   z-index: 0;
 }
-
-.glow.one { top: -200px; left: -200px; }
-.glow.two { bottom: -200px; right: -200px; }
 
 /* NAV */
 nav {
   display: flex;
   justify-content: space-between;
   padding: 20px 40px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
   position: sticky;
   top: 0;
+  background: rgba(0,0,0,0.6);
   backdrop-filter: blur(10px);
-  background: rgba(0,0,0,0.4);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
   z-index: 10;
 }
 
 nav h1 {
-  font-size: 20px;
+  color: #ff2b2b;
   font-weight: 900;
   letter-spacing: 2px;
-  color: #ff2b2b;
 }
 
 /* HERO */
 .hero {
   text-align: center;
   padding: 120px 20px 60px;
+  position: relative;
+  z-index: 1;
 }
 
 .hero h2 {
-  font-size: 60px;
+  font-size: 64px;
   font-weight: 900;
 }
 
 .hero span {
   color: #ff2b2b;
-  text-shadow: 0 0 20px red;
+  text-shadow: 0 0 25px red;
 }
 
 .hero p {
   margin-top: 15px;
   color: rgba(255,255,255,0.6);
-  font-size: 18px;
 }
 
 /* BUTTONS */
 .btn {
-  margin-top: 25px;
+  margin-top: 20px;
   padding: 14px 26px;
   border: none;
   border-radius: 12px;
+  font-weight: 800;
   cursor: pointer;
-  font-weight: 700;
   transition: 0.2s;
 }
 
-.btn-red {
-  background: #ff2b2b;
-  color: white;
-  box-shadow: 0 0 25px rgba(255,0,0,0.4);
-}
-
-.btn-red:hover {
+.btn:hover {
   transform: translateY(-3px);
 }
 
-.btn-dark {
+.red {
+  background: #ff2b2b;
+  color: white;
+  box-shadow: 0 0 30px rgba(255,0,0,0.4);
+}
+
+.dark {
   background: rgba(255,255,255,0.05);
   color: white;
   border: 1px solid rgba(255,255,255,0.1);
 }
 
-.btn-dark:hover {
-  transform: translateY(-3px);
+/* LOCKED STATE */
+.locked {
+  opacity: 0.5;
+  pointer-events: none;
 }
 
-/* PRICING */
-section {
-  padding: 80px 20px;
-}
-
+/* GRID */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 20px;
   max-width: 1000px;
   margin: auto;
+  padding: 60px 20px;
 }
 
 .card {
@@ -126,8 +121,8 @@ section {
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 18px;
   padding: 25px;
-  backdrop-filter: blur(10px);
   transition: 0.2s;
+  backdrop-filter: blur(10px);
 }
 
 .card:hover {
@@ -135,13 +130,8 @@ section {
   border-color: rgba(255,0,0,0.5);
 }
 
-.card h3 {
-  font-size: 22px;
-  margin-bottom: 10px;
-}
-
 .price {
-  font-size: 32px;
+  font-size: 28px;
   color: #ff2b2b;
   font-weight: 900;
   margin: 10px 0;
@@ -150,6 +140,9 @@ section {
 /* ORDER */
 .order {
   text-align: center;
+  padding: 60px 20px;
+  position: relative;
+  z-index: 1;
 }
 
 input, select {
@@ -163,60 +156,60 @@ input, select {
   color: white;
 }
 
-/* MOBILE */
-@media(max-width: 600px){
-  .hero h2 { font-size: 38px; }
+.notice {
+  color: rgba(255,255,255,0.6);
+  margin-top: 10px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="glow one"></div>
-<div class="glow two"></div>
+<div class="bg-glow"></div>
 
 <nav>
   <h1>MyDadsSoft</h1>
+  <button class="btn dark" onclick="joinDiscord()">Join Discord</button>
 </nav>
 
 <div class="hero">
   <h2>FH6 <span>BOOSTING</span></h2>
   <p>Credits • Wheelspins • Rare Cars</p>
 
-  <button class="btn btn-red" onclick="scrollToOrder()">Order Now</button>
+  <button class="btn red" onclick="scrollOrder()">Start Order</button>
 </div>
 
-<section>
-  <div class="grid">
+<div class="grid">
 
-    <div class="card">
-      <h3>Credits</h3>
-      <div class="price">£5 - £50</div>
-      <p>100M → 999M Credit packages</p>
-    </div>
-
-    <div class="card">
-      <h3>Wheelspins</h3>
-      <div class="price">£3 - £25</div>
-      <p>50 / 200 / 1000 spins</p>
-    </div>
-
-    <div class="card">
-      <h3>Rare Cars</h3>
-      <div class="price">Custom</div>
-      <p>Exclusive vehicle requests</p>
-    </div>
-
+  <div class="card">
+    <h3>Credits</h3>
+    <div class="price">£5 - £50</div>
+    <p>100M / 500M / 999M packages</p>
   </div>
-</section>
 
-<section class="order" id="order">
+  <div class="card">
+    <h3>Wheelspins</h3>
+    <div class="price">£3 - £25</div>
+    <p>50 / 200 / 1000 spins</p>
+  </div>
+
+  <div class="card">
+    <h3>Rare Cars</h3>
+    <div class="price">Custom</div>
+    <p>Exclusive vehicle requests</p>
+  </div>
+
+</div>
+
+<div class="order" id="order">
 
   <h2>Place Order</h2>
 
+  <p class="notice">⚠ You must join the Discord to place an order</p>
+
   <input id="discord" placeholder="Discord Username">
-  
-  <select id="product">
+
+  <select id="product" class="locked">
     <option>Credits</option>
     <option>Wheelspins</option>
     <option>Rare Cars</option>
@@ -224,17 +217,36 @@ input, select {
 
   <input id="amount" placeholder="Amount">
 
-  <button class="btn btn-red" onclick="submitOrder()">Submit Order</button>
+  <button id="orderBtn" class="btn red locked" onclick="submitOrder()">
+    Submit Order
+  </button>
 
-</section>
+</div>
 
 <script>
-function scrollToOrder(){
+let joined = false;
+
+function joinDiscord(){
+  window.open("https://discord.gg/YOURINVITE", "_blank");
+  joined = true;
+
+  document.getElementById("orderBtn").classList.remove("locked");
+  document.getElementById("product").classList.remove("locked");
+
+  alert("Discord opened — you can now place an order.");
+}
+
+function scrollOrder(){
   document.getElementById("order").scrollIntoView({behavior:"smooth"});
 }
 
 function submitOrder(){
-  alert("Order sent!");
+  if(!joined){
+    alert("You must join the Discord first!");
+    return;
+  }
+
+  alert("Order sent successfully!");
 }
 </script>
 
