@@ -1,66 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MyDadsSoft's Boosting</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MyDadsSoft's Boosting</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #050505;
+  color: white;
+}
+
+/* NAV */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background: black;
+  border-bottom: 1px solid #222;
+}
+
+.nav h1 {
+  font-size: 18px;
+}
+
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.hero h2 {
+  font-size: 40px;
+  margin-bottom: 10px;
+  color: red;
+}
+
+button {
+  background: red;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: 0.2s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* PRICING */
+#pricing {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 40px;
+}
+
+.card {
+  border: 1px solid #222;
+  padding: 20px;
+  width: 260px;
+  border-radius: 12px;
+  background: #0a0a0a;
+}
+
+.card h3 {
+  margin-bottom: 10px;
+}
+
+/* ORDER */
+#order {
+  text-align: center;
+  padding: 50px;
+}
+
+input, select {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  width: 250px;
+  border-radius: 6px;
+  border: none;
+}
+</style>
+
 </head>
 
 <body>
-  <div class="bg"></div>
 
-  <header class="nav">
-    <h1>MyDadsSoft's Boosting</h1>
-    <a href="#order">Order</a>
-  </header>
+<div class="nav">
+  <h1>MyDadsSoft's Boosting</h1>
+  <a href="#order" style="color:white;text-decoration:none;">Order</a>
+</div>
 
-  <section class="hero">
-    <h2>FH6 Boosting Service</h2>
-    <p>Credits • Wheelspins • Rare Cars</p>
+<div class="hero">
+  <h2>FH6 Boosting Service</h2>
+  <p>Credits • Wheelspins • Rare Cars</p>
 
-    <button onclick="scrollToOrder()">Order Now</button>
-  </section>
+  <button onclick="scrollToOrder()">Order Now</button>
+</div>
 
-  <section id="pricing">
-    <div class="card">
-      <h3>Credits</h3>
-      <button onclick="setOrder('Credits','100M')">100M - £5</button>
-      <button onclick="setOrder('Credits','500M')">500M - £20</button>
-      <button onclick="setOrder('Credits','999M')">999M - £50</button>
-    </div>
+<section id="pricing">
 
-    <div class="card">
-      <h3>Wheelspins</h3>
-      <button onclick="setOrder('Wheelspins','50')">50 - £3</button>
-      <button onclick="setOrder('Wheelspins','200')">200 - £10</button>
-      <button onclick="setOrder('Wheelspins','1000')">1000 - £25</button>
-    </div>
+  <div class="card">
+    <h3>Credits</h3>
+    <button onclick="setOrder('Credits','100M')">100M - £5</button>
+    <button onclick="setOrder('Credits','500M')">500M - £20</button>
+    <button onclick="setOrder('Credits','999M')">999M - £50</button>
+  </div>
 
-    <div class="card">
-      <h3>Rare Cars</h3>
-      <button onclick="setOrder('Rare Cars','Custom')">Request Car</button>
-    </div>
-  </section>
+  <div class="card">
+    <h3>Wheelspins</h3>
+    <button onclick="setOrder('Wheelspins','50')">50 - £3</button>
+    <button onclick="setOrder('Wheelspins','200')">200 - £10</button>
+    <button onclick="setOrder('Wheelspins','1000')">1000 - £25</button>
+  </div>
 
-  <section id="order">
-    <h2>Place Order</h2>
+  <div class="card">
+    <h3>Rare Cars</h3>
+    <button onclick="setOrder('Rare Cars','Custom Request')">Request Car</button>
+  </div>
 
-    <input id="discord" placeholder="Discord Username" />
-    <select id="product">
-      <option>Credits</option>
-      <option>Wheelspins</option>
-      <option>Rare Cars</option>
-    </select>
+</section>
 
-    <input id="amount" placeholder="Amount" />
+<section id="order">
 
-    <!-- anti-spam honeypot -->
-    <input id="website" style="display:none">
+  <h2>Place Order</h2>
 
-    <button onclick="submitOrder()">Submit Order</button>
-  </section>
+  <input id="discord" placeholder="Discord Username">
+  
+  <select id="product">
+    <option>Credits</option>
+    <option>Wheelspins</option>
+    <option>Rare Cars</option>
+  </select>
 
-  <script src="script.js"></script>
+  <input id="amount" placeholder="Amount">
+
+  <button onclick="submitOrder()">Submit Order</button>
+
+</section>
+
+<script>
+function scrollToOrder() {
+  document.getElementById("order").scrollIntoView({ behavior: "smooth" });
+}
+
+function setOrder(product, amount) {
+  document.getElementById("product").value = product;
+  document.getElementById("amount").value = amount;
+}
+
+function submitOrder() {
+  const discord = document.getElementById("discord").value;
+  const product = document.getElementById("product").value;
+  const amount = document.getElementById("amount").value;
+
+  alert(
+    "Order Sent!\\n" +
+    "Discord: " + discord + "\\n" +
+    "Product: " + product + "\\n" +
+    "Amount: " + amount
+  );
+}
+</script>
+
 </body>
 </html>
