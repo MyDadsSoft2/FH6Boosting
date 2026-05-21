@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MyDadsSoft's Boosting</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #050505;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: -2;
+    }
+
+    .glow {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: rgba(255,0,0,0.15);
+      filter: blur(120px);
+      z-index: -1;
+      animation: pulse 5s infinite ease-in-out;
+    }
+
+    .glow.one {
+      top: -200px;
+      left: -150px;
+    }
+
+    .glow.two {
+      bottom: -200px;
+      right: -150px;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 30px 80px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(0,0,0,0.5);
+    }
+
+    .logo {
+      font-size: 38px;
+      font-weight: 900;
+      letter-spacing: 8px;
+      color: #ff2b2b;
+      text-shadow: 0 0 20px rgba(255,0,0,0.8);
+    }
+
+    nav ul {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.7);
+      text-transform: uppercase;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #ff2b2b;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 80px;
+      gap: 80px;
+      flex-wrap: wrap;
+    }
+
+    .hero-text {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 12px 24px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      margin-bottom: 30px;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .hero h1 {
+      font-size: 90px;
+      font-weight: 900;
+      line-height: 0.95;
+      text-transform: uppercase;
+    }
+
+    .hero h1 span {
+      color: #ff2b2b;
+      text-shadow: 0 0 25px rgba(255,0,0,0.7);
+    }
+
+    .hero p {
+      margin-top: 30px;
+      color: rgba(255,255,255,0.65);
+      font-size: 20px;
+      line-height: 1.7;
+      max-width: 700px;
+    }
+
+    .buttons {
+      margin-top: 40px;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 18px 40px;
+      border-radius: 18px;
+      border: none;
+      font-size: 16px;
+      font-weight: 800;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-primary {
+      background: #ff2b2b;
+      color: white;
+      box-shadow: 0 0 35px rgba(255,0,0,0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-5px);
+      background: #ff4040;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255,0,0,0.5);
+    }
+
+    .hero-card {
+      flex: 1;
+      min-width: 320px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 40px;
+      padding: 20px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 0 50px rgba(255,0,0,0.1);
+    }
+
+    .hero-card img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      border-radius: 30px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .stat-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 25px;
+      padding: 25px;
+      text-align: center;
+    }
+
+    .stat-box h2 {
+      font-size: 42px;
+      color: #ff2b2b;
+      text-shadow: 0 0 20px rgba(255,0,0,0.6);
+    }
+
+    section {
+      padding: 120px 80px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+
+    .section-title p {
+      color: #ff2b2b;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .section-title h2 {
+      font-size: 60px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 35px;
+      padding: 40px;
+      transition: 0.35s;
+      backdrop-filter: blur(15px);
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(255,0,0,0.5);
+      box-shadow: 0 0 50px rgba(255,0,0,0.2);
+    }
+
+    .card h3 {
+      font-size: 34px;
+      margin: 20px 0;
+    }
+
+    .card p {
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+    }
+
+    .emoji {
+      font-size: 60px;
+    }
+
+    footer {
+      padding: 80px;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    footer h2 {
+      font-size: 60px;
+      color: #ff2b2b;
+      text-shadow: 0 0 25px rgba(255,0,0,0.6);
+      margin-bottom: 20px;
+    }
+
+    footer p {
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 30px;
+    }
+
+    @media(max-width: 900px) {
+      nav {
+        padding: 25px;
+      }
+
+      nav ul {
+        display: none;
+      }
+
+      .hero {
+        padding: 40px 25px;
+      }
+
+      section {
+        padding: 100px 25px;
+      }
+
+      .hero h1 {
+        font-size: 60px;
+      }
+
+      .section-title h2,
+      footer h2 {
+        font-size: 42px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-grid"></div>
+  <div class="glow one"></div>
+  <div class="glow two"></div>
+
+  <nav>
+    <div class="logo">MyDadsSoft's Boosting</div>
+
+    <ul>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-text">
+      <div class="tag">Trusted FH6 Boosting Service</div>
+
+      <h1>
+        Become A<br>
+        <span>Horizon Legend</span>
+      </h1>
+
+      <p>
+        Fast credits, rare cars, wheelspins and custom FH6 boosting packages.
+        Safe methods. Instant delivery. 24/7 support.
+      </p>
+
+      <div class="buttons">
+        <button class="btn btn-primary" onclick="window.location.href='discord.gg/eaMn5YhX6J'">Order Now</button>
+        <button class="btn btn-secondary" onclick="document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' })">View Packages</button>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1600&auto=format&fit=crop" alt="car">
+
+      <div class="stats">
+        <div class="stat-box">
+          <h2>999M</h2>
+          <span>Credits</span>
+        </div>
+
+        <div class="stat-box">
+          <h2>MAX</h2>
+          <span>Garage</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="section-title">
+      <p>Services</p>
+      <h2>Everything You Need</h2>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="emoji">💰</div>
+        <h3>Credits</h3>
+        <p>Massive instant credits added directly to your account.</p>
+      </div>
+
+      <div class="card">
+        <div class="emoji">🚗</div>
+        <h3>Rare Cars</h3>
+        <p>Unlock rare and unreleased FH6 vehicles instantly.</p>
+      </div>
+
+      <div class="card">
+        <div class="emoji">🎁</div>
+        <h3>Bundles</h3>
+        <p>Custom garage builds and wheelspin packages.</p>
+      </div>
+
+      <div class="card">
+        <div class="emoji">🎰</div>
+        <h3>Wheelspins</h3>
+        <p>Huge wheelspin bundles and exclusive rewards.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="section-title">
+      <p>Pricing</p>
+      <h2>Popular Packages</h2>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <h3>Credits Pack</h3>
+        <h1 style="font-size:60px;color:#ff2b2b;margin:20px 0;">£5 - £50</h1>
+        <p>
+          100M Credits - £5<br>
+          500M Credits - £20<br>
+          999M Credits - £50
+        </p>
+      </div>
+
+      <div class="card" style="background:#ff2b2b;">
+        <h3>Wheelspin Packs</h3>
+        <h1 style="font-size:60px;margin:20px 0;">£3 - £25</h1>
+        <p>
+          50 Wheelspins - £3<br>
+          200 Wheelspins - £10<br>
+          1000 Wheelspins - £25
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Rare Cars</h3>
+        <h1 style="font-size:60px;color:#ff2b2b;margin:20px 0;">Custom</h1>
+        <p>
+          Exclusive rare cars<br>
+          
+          Request specific vehicles
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <h2>READY TO BOOST?</h2>
+    <p>Join the Discord and upgrade your FH6 account today.</p>
+
+    <button class="btn btn-primary" onclick="window.location.href='https://discord.gg/eaMn5YhX6J'">Join Discord</button>
+
+    <p style="margin-top:50px;font-size:14px;opacity:0.5;">
+      © 2026 MyDadsSoft's Boosting — All Rights Reserved
+    </p>
+  </footer>
+
+  <script>
+    // Fade in cards on scroll
+    const cards = document.querySelectorAll('.card, .hero-card, .stat-box');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0px)';
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    cards.forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(40px)';
+      card.style.transition = 'all 0.7s ease';
+      observer.observe(card);
+    });
+
+    // Animated title glow effect
+    setInterval(() => {
+      document.title = document.title === 'FH6 BOOST'
+        ? '🔥 FH6 BOOST 🔥'
+        : 'FH6 BOOST';
+    }, 1500);
+  </script>
+</body>
+</html>
